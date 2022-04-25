@@ -12,7 +12,7 @@ API へのアクセスを行うため iksm_session と呼ばれるトークン�
 
 このトークンはプロキシツールで[Nintendo Switch Online](https://www.nintendo.co.jp/hardware/switch/onlineservice/app/)の通信内容を表示したり[iksm-chan](https://iksm.vercel.app/)と呼ばれるウェブアプリを利用することで取得できます。
 
-### データベースの複製とデータベース id の取得
+### ページの複製とデータベース id の取得
 
 以下のページを Notion 上で複製しバトル、サーモンラン、ルール、ステージ、ゲームモード、ブキ、サブウェポン、スペシャル、ギア、ブランド、ギアパワーの各データベースの id を取得します。
 
