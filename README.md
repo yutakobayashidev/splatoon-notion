@@ -1,5 +1,7 @@
 # splatoon-notion
 
+![Demo](https://user-images.githubusercontent.com/91340399/165035050-f2f67d16-780d-47d8-911a-40c476f39442.jpg)
+
 Splatoon2 のバトルやサーモンランのデータを自動で Notion に保存する Google App Script です。
 
 ## Usage
