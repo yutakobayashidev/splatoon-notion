@@ -26,6 +26,8 @@ https://yutakobayashi.notion.site/Splatoon2-c8ef1d1a5c4840dda1342aac4d9ed03d
 
 ### プロパティの設定
 
+Google Apps Script の旧エディターなどでプロパティを以下のように設定します。
+
 - `"iksm_session": your iksm_session token`
 - `"notionToken": your Notion integration token`
 - `"battle_database": your Notion Battle Database id`
