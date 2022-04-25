@@ -4,6 +4,10 @@
 
 Splatoon2 のバトルやサーモンランのデータを自動で Notion に保存する Google App Script です。
 
+## DEMO
+
+https://yutakobayashi.notion.site/Splatoon2-d66a5ae5905f4fc8b14636e138c4cc87
+
 ## Usage
 
 このスクリプトでは[イカリング 2](https://www.nintendo.co.jp/switch/aab6a/online/index.html)の API を利用しています。この API の利用は推奨されていないため利用は自己責任でお願いします。
@@ -42,4 +46,4 @@ main 関数を定期実行することで自動で Notion にデータを保存�
 ## TODO
 
 - ffmpeg と numpy と YouTube Data API の連携
-- カバー画像を share/results/{}から取得するように変更
+- カバー画像を `share/results/{battle_number}`から取得するように変更
