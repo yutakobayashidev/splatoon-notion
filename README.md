@@ -12,9 +12,15 @@ API へのアクセスを行うため iksm_session と呼ばれるトークン�
 
 このトークンはプロキシツールで[Nintendo Switch Online](https://www.nintendo.co.jp/hardware/switch/onlineservice/app/)の通信内容を表示したり[iksm-chan](https://iksm.vercel.app/)と呼ばれるウェブアプリを利用することで取得できます。
 
+### データベースの複製とデータベース id の取得
+
+以下のページを Notion 上で複製しバトル、サーモンラン、ルール、ステージ、ゲームモード、ブキ、サブウェポン、スペシャル、ギア、ブランド、ギアパワーの各データベースの id を取得します。
+
+https://yutakobayashi.notion.site/Splatoon2-c8ef1d1a5c4840dda1342aac4d9ed03d
+
 ### 定期実行
 
-main 関数を定期実行することで自動で Notion にデータを保存することができます。イカリング 2 の API の使用上過去 50 件の試合データのみしか取得できないためデータが消えてしまう前に実行するといいでしょう。
+main 関数を定期実行することで自動で Notion にデータを保存することができます。イカリング 2 の API の使用上過去 50 件のバトルデータのみしか取得できないためデータが消えてしまう前に実行するといいでしょう。
 
 ## TODO
 
