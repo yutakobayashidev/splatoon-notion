@@ -38,7 +38,7 @@ Google Apps Script の旧エディターなどでプロパティを以下のよ�
 - `"weapon_database": your Notion Weapon Database id`
 - `"subweapon_database": your Notion Sub Weapon Database id`
 - `"specialweapon_database": your Notion Special Weapon Database id`
-- `"gear_database": your Notion Special Gear Database id`
+- `"gear_database": your Notion Gear Database id`
 - `"discordWebHookURL": your Discord Webhook URL`
 
 ### 定期実行
