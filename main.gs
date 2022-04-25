@@ -1,16 +1,16 @@
 const props = PropertiesService.getScriptProperties()
 
-const IKSM_SESSION = props.getProperty('IKSM_SESSION')
+const iksm_session = props.getProperty('iksm_session')
 const notionToken = props.getProperty('notionToken')
 const battle_database = props.getProperty('battle_database')
+const salmon_run_database = props.getProperty('salmon_run_database')
 const rule_database = props.getProperty('rule_database')
 const mode_database = props.getProperty('mode_database')
 const stage_database = props.getProperty('stage_database')
+const subweapon_database = props.getProperty('subweapon_database')
 const weapon_database = props.getProperty('weapon_database')
 const specialweapon_database = props.getProperty('specialweapon_database')
 const gear_database = props.getProperty('gear_database')
-const subweapon_database = props.getProperty('subweapon_database')
-const salmon_run_database = props.getProperty('salmon_run_database')
 const discordWebHookURL = props.getProperty('discordWebHookURL')
 
 function main() {
@@ -616,7 +616,7 @@ function splatoonAPI(endpoint) {
 
   let api = "https://app.splatoon2.nintendo.net/api" + endpoint;
 
-  var headers = { 'headers': { 'Cookie': 'iksm_session=' + IKSM_SESSION }, 'contentType': 'application/json' };
+  var headers = { 'headers': { 'Cookie': 'iksm_session=' + iksm_session }, 'contentType': 'application/json' };
 
   let res = UrlFetchApp.fetch(
     api, headers
@@ -628,10 +628,10 @@ function splatoonAPI(endpoint) {
 }
 
 function isValidIksmSession() {
-  var getOptions = { 'headers': { 'Cookie': 'iksm_session=' + IKSM_SESSION }, 'contentType': 'application/json' };
+  var getOptions = { 'headers': { 'Cookie': 'iksm_session=' + iksm_session }, 'contentType': 'application/json' };
   try {
     UrlFetchApp.fetch('https://app.splatoon2.nintendo.net/api/results', getOptions);
-    Logger.log('✅ IKSM_SESSION Succes!');
+    Logger.log('✅ iksm_session Succes!');
   } catch (e) {
     Logger.log(e);
   }
