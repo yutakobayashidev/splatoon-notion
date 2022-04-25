@@ -18,6 +18,21 @@ API へのアクセスを行うため iksm_session と呼ばれるトークン�
 
 https://yutakobayashi.notion.site/Splatoon2-c8ef1d1a5c4840dda1342aac4d9ed03d
 
+### プロパティの設定
+
+- `"iksm_session": your iksm_session token`
+- `"notionToken": your Notion integration token`
+- `"battle_database": your Notion Battle Database id`
+- `"salmon_run_database": your Notion Salmon Run Database id`
+- `"rule_database": your Notion Rule Database id`
+- `"mode_database": your Notion Game Mode Database id`
+- `"stage_database": your Notion Stage Database id`
+- `"weapon_database": your Notion Weapon Database id`
+- `"subweapon_database": your Notion Sub Weapon Database id`
+- `"specialweapon_database": your Notion Special Weapon Database id`
+- `"gear_database": your Notion Special Gear Database id`
+- `"discordWebHookURL": your Discord Webhook URL`
+
 ### 定期実行
 
 main 関数を定期実行することで自動で Notion にデータを保存することができます。イカリング 2 の API の使用上過去 50 件のバトルデータのみしか取得できないためデータが消えてしまう前に実行するといいでしょう。
