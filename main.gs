@@ -206,6 +206,45 @@ function getstage(battle) {
 
   let pages = res.results[0];
 
+  if (Object.keys(res.results).length === 0) {
+    console.log(battle.stage.name + "のページがないため作成します");
+
+    const id = Number(battle.stage.id);
+
+    let endpoint = "/pages"
+
+    let payload = {
+      parent: {
+        database_id: stage_database,
+      },
+      "cover": {
+        "type": "external",
+        "external": {
+          "url": "https://app.splatoon2.nintendo.net" + battle.stage.image
+        }
+      },
+      properties: {
+        "Name": {
+          title: [
+            {
+              text: {
+                content: battle.stage.name
+              },
+            },
+          ],
+        },
+        "id": {
+          "number": id
+        },
+      }
+    };
+
+    let pages = notionAPI(endpoint, "POST", payload);
+
+    return pages;
+
+  }
+
   return pages;
 
 
@@ -248,7 +287,7 @@ function getweapon(battle) {
 
   let pages = res.results[0];
 
-  if (res.results === 0) {
+  if (Object.keys(res.results).length === 0) {
     console.log(battle.player_result.player.weapon.name + "のページがないため作成します");
 
     const id = Number(battle.player_result.player.weapon.id);
@@ -292,7 +331,7 @@ function getweapon(battle) {
         "スペシャル": {
           "relation": [
             {
-              "id": special[0].id
+              "id": special.id
             }
           ]
         },
@@ -327,6 +366,45 @@ function getsubweapon(battle) {
   if (isError(res)) return [];
 
   let pages = res.results[0];
+
+  if (Object.keys(res.results).length === 0) {
+    console.log(battle.player_result.player.weapon.sub.name + "のページがないため作成します");
+
+    const id = Number(battle.player_result.player.weapon.sub.id);
+
+    let endpoint = "/pages"
+
+    let payload = {
+      parent: {
+        database_id: subweapon_database,
+      },
+      "icon": {
+        "type": "external",
+        "external": {
+          "url": "https://app.splatoon2.nintendo.net" + battle.player_result.player.weapon.sub.image_a
+        }
+      },
+      properties: {
+        名前: {
+          title: [
+            {
+              text: {
+                content: battle.player_result.player.weapon.sub.name
+              },
+            },
+          ],
+        },
+        "id": {
+          "number": id
+        },
+      }
+    };
+
+    let pages = notionAPI(endpoint, "POST", payload);
+
+    return pages;
+
+  }
 
   return pages;
 }
@@ -403,7 +481,47 @@ function getspecialweapon(battle) {
   let res = notionAPI(endpoint, "POST", payload);
   if (isError(res)) return [];
 
-  let pages = res.results;
+  let pages = res.results[0];
+
+  if (Object.keys(res.results).length === 0) {
+    console.log(battle.player_result.player.weapon.special.name + "のページがないため作成します");
+
+    const id = Number(battle.player_result.player.weapon.special.id);
+
+    let endpoint = "/pages"
+
+    let payload = {
+      parent: {
+        database_id: specialweapon_database,
+      },
+      "icon": {
+        "type": "external",
+        "external": {
+          "url": "https://app.splatoon2.nintendo.net" + battle.player_result.player.weapon.special.image_a
+        }
+      },
+      properties: {
+        名前: {
+          title: [
+            {
+              text: {
+                content: battle.player_result.player.weapon.special.name
+              },
+            },
+          ],
+        },
+        "id": {
+          "number": id
+        },
+      }
+    };
+
+    let pages = notionAPI(endpoint, "POST", payload);
+
+    return pages;
+
+  }
+
   return pages;
 }
 
