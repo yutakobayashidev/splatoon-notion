@@ -20,7 +20,7 @@ API へのアクセスを行うため iksm_session と呼ばれるトークン�
 
 ### ページの複製とデータベース id の取得
 
-以下のページを Notion 上で複製しバトル、サーモンラン、ルール、ステージ、ゲームモード、ブキ、サブウェポン、スペシャル、ギア、ブランド、ギアパワーの各データベースの id を取得します。
+以下のページを Notion 上で複製しバトル、サーモンラン、ルール、ステージ、ゲームモード、ブキ、サブウェポン、スペシャル、ギア、ブランドの各データベースの id を取得します。
 
 https://yutakobayashi.notion.site/Splatoon2-cc3b04c2ac22476fb5e189275e261247
 
@@ -32,8 +32,8 @@ Google Apps Script の旧エディターなどでプロパティを以下のよ�
 - `"notionToken": your Notion integration token`
 - `"battle_database": your Notion Battle Database id`
 - `"salmon_run_database": your Notion Salmon Run Database id`
-- `"rule_database": your Notion Rule Database id`
 - `"mode_database": your Notion Game Mode Database id`
+- `"rule_database": your Notion Rule Database id`
 - `"stage_database": your Notion Stage Database id`
 - `"weapon_database": your Notion Weapon Database id`
 - `"subweapon_database": your Notion Sub Weapon Database id`
