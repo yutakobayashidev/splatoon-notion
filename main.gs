@@ -11,6 +11,7 @@ const subweapon_database = props.getProperty('subweapon_database')
 const weapon_database = props.getProperty('weapon_database')
 const specialweapon_database = props.getProperty('specialweapon_database')
 const gear_database = props.getProperty('gear_database')
+const brand_database = props.getProperty('brand_database')
 const discordWebHookURL = props.getProperty('discordWebHookURL')
 
 function main() {
@@ -82,7 +83,7 @@ function postDiscord(updateCount) {
 
 function getResults() {
   let endpoint = `/results`;
-  let res = splatoonAPI(endpoint);
+  let res = splatnetAPI(endpoint);
 
   let results = res.results;
 
@@ -92,7 +93,7 @@ function getResults() {
 
 function getCoop() {
   let endpoint = `/coop_results`;
-  let res = splatoonAPI(endpoint);
+  let res = splatnetAPI(endpoint);
 
   let results = res.results;
 
@@ -104,7 +105,7 @@ function getBattle(result) {
 
   let endpoint = `/results/${result.battle_number}`
 
-  let res = splatoonAPI(endpoint)
+  let res = splatnetAPI(endpoint)
 
   let results = res;
 
@@ -156,7 +157,7 @@ function getRule(battle) {
 
   let payload = {
     filter: {
-      "property": "名前",
+      "property": "Name",
       "title": {
         "equals": battle.rule.name
       }
@@ -175,7 +176,7 @@ function getMode(battle) {
 
   let payload = {
     filter: {
-      "property": "名前",
+      "property": "Name",
       "title": {
         "equals": battle.game_mode.name
       }
@@ -275,7 +276,7 @@ function getweapon(battle) {
 
   let payload = {
     filter: {
-      "property": "名前",
+      "property": "Name",
       "title": {
         "equals": battle.player_result.player.weapon.name
       }
@@ -309,7 +310,7 @@ function getweapon(battle) {
         }
       },
       properties: {
-        名前: {
+        "Name": {
           title: [
             {
               text: {
@@ -354,7 +355,7 @@ function getsubweapon(battle) {
 
   let payload = {
     filter: {
-      "property": "名前",
+      "property": "Name",
       "title": {
         "equals": battle.player_result.player.weapon.sub.name
       }
@@ -385,11 +386,194 @@ function getsubweapon(battle) {
         }
       },
       properties: {
-        名前: {
+        "Name": {
           title: [
             {
               text: {
                 content: battle.player_result.player.weapon.sub.name
+              },
+            },
+          ],
+        },
+        "id": {
+          "number": id
+        },
+      }
+    };
+
+    let pages = notionAPI(endpoint, "POST", payload);
+
+    return pages;
+
+  }
+
+  return pages;
+}
+
+function getheadbrand(battle) {
+
+  let endpoint = `/databases/${brand_database}/query`;
+
+  let payload = {
+    filter: {
+      "property": "Name",
+      "title": {
+        "equals": battle.player_result.player.head.brand.name
+      }
+    },
+    page_size: 50,
+  };
+
+  let res = notionAPI(endpoint, "POST", payload);
+  if (isError(res)) return [];
+
+  let pages = res.results[0];
+
+  if (Object.keys(res.results).length === 0) {
+    console.log(battle.player_result.player.head.brand.name + "のページがないため作成します");
+
+    const id = Number(battle.player_result.player.head.brand.id);
+
+    let endpoint = "/pages"
+
+    let payload = {
+      parent: {
+        database_id: brand_database,
+      },
+      "icon": {
+        "type": "external",
+        "external": {
+          "url": "https://app.splatoon2.nintendo.net" + battle.player_result.player.head.brand.image
+        }
+      },
+      properties: {
+        "Name": {
+          title: [
+            {
+              text: {
+                content: battle.player_result.player.head.brand.name
+              },
+            },
+          ],
+        },
+        "id": {
+          "number": id
+        },
+      }
+    };
+
+    let pages = notionAPI(endpoint, "POST", payload);
+
+    return pages;
+
+  }
+
+  return pages;
+}
+
+function getClothesbrand(battle) {
+
+  let endpoint = `/databases/${brand_database}/query`;
+
+  let payload = {
+    filter: {
+      "property": "Name",
+      "title": {
+        "equals": battle.player_result.player.clothes.brand.name
+      }
+    },
+    page_size: 50,
+  };
+
+  let res = notionAPI(endpoint, "POST", payload);
+  if (isError(res)) return [];
+
+  let pages = res.results[0];
+
+  if (Object.keys(res.results).length === 0) {
+    console.log(battle.player_result.player.clothes.brand.name + "のページがないため作成します");
+
+    const id = Number(battle.player_result.player.clothes.brand.id);
+
+    let endpoint = "/pages"
+
+    let payload = {
+      parent: {
+        database_id: brand_database,
+      },
+      "icon": {
+        "type": "external",
+        "external": {
+          "url": "https://app.splatoon2.nintendo.net" + battle.player_result.player.clothes.brand.image
+        }
+      },
+      properties: {
+        "Name": {
+          title: [
+            {
+              text: {
+                content: battle.player_result.player.clothes.brand.name
+              },
+            },
+          ],
+        },
+        "id": {
+          "number": id
+        },
+      }
+    };
+
+    let pages = notionAPI(endpoint, "POST", payload);
+
+    return pages;
+
+  }
+
+  return pages;
+}
+
+function getShoesbrand(battle) {
+
+  let endpoint = `/databases/${brand_database}/query`;
+
+  let payload = {
+    filter: {
+      "property": "Name",
+      "title": {
+        "equals": battle.player_result.player.shoes.brand.name
+      }
+    },
+    page_size: 50,
+  };
+
+  let res = notionAPI(endpoint, "POST", payload);
+  if (isError(res)) return [];
+
+  let pages = res.results[0];
+
+  if (Object.keys(res.results).length === 0) {
+    console.log(battle.player_result.player.shoes.brand.name + "のページがないため作成します");
+
+    const id = Number(battle.player_result.player.shoes.brand.id);
+
+    let endpoint = "/pages"
+
+    let payload = {
+      parent: {
+        database_id: brand_database,
+      },
+      icon: {
+        type: "external",
+        external: {
+          "url": "https://app.splatoon2.nintendo.net" + battle.player_result.player.shoes.brand.image
+        }
+      },
+      properties: {
+        "Name": {
+          title: [
+            {
+              text: {
+                content: battle.player_result.player.shoes.brand.name
               },
             },
           ],
@@ -414,7 +598,7 @@ function getHead(battle) {
 
   let payload = {
     filter: {
-      "property": "名前",
+      "property": "Name",
       "title": {
         "equals": battle.player_result.player.head.name
       }
@@ -424,7 +608,61 @@ function getHead(battle) {
   let res = notionAPI(endpoint, "POST", payload);
   if (isError(res)) return [];
 
-  let pages = res.results;
+  let pages = res.results[0];
+
+
+  if (Object.keys(res.results).length === 0) {
+    console.log(battle.player_result.player.head.name + "のページがないため作成します");
+
+    const id = Number(battle.player_result.player.head.id);
+    let brand = getheadbrand(battle)
+
+    let endpoint = "/pages"
+
+    let payload = {
+      parent: {
+        database_id: gear_database,
+      },
+      "icon": {
+        "type": "external",
+        "external": {
+          "url": "https://app.splatoon2.nintendo.net" + battle.player_result.player.head.image
+        }
+      },
+      properties: {
+        "Name": {
+          title: [
+            {
+              text: {
+                content: battle.player_result.player.head.name
+              },
+            },
+          ],
+        },
+        "id": {
+          "number": id
+        },
+        "kind": {
+          "select": {
+            "name": "アタマ"
+          }
+        },
+        "brand": {
+          "relation": [
+            {
+              "id": brand.id
+            }
+          ]
+        }
+      }
+    };
+
+    let pages = notionAPI(endpoint, "POST", payload);
+
+    return pages;
+
+  }
+
   return pages;
 }
 
@@ -433,7 +671,7 @@ function getClothes(battle) {
 
   let payload = {
     filter: {
-      "property": "名前",
+      "property": "Name",
       "title": {
         "equals": battle.player_result.player.clothes.name
       }
@@ -443,7 +681,61 @@ function getClothes(battle) {
   let res = notionAPI(endpoint, "POST", payload);
   if (isError(res)) return [];
 
-  let pages = res.results;
+  let pages = res.results[0];
+
+  if (Object.keys(res.results).length === 0) {
+    console.log(battle.player_result.player.clothes.name + "のページがないため作成します");
+
+    const id = Number(battle.player_result.player.clothes.id);
+
+    let brand = getClothesbrand(battle)
+
+    let endpoint = "/pages"
+
+    let payload = {
+      parent: {
+        database_id: gear_database,
+      },
+      "icon": {
+        "type": "external",
+        "external": {
+          "url": "https://app.splatoon2.nintendo.net" + battle.player_result.player.clothes.image
+        }
+      },
+      properties: {
+        "Name": {
+          title: [
+            {
+              text: {
+                content: battle.player_result.player.clothes.name
+              },
+            },
+          ],
+        },
+        "id": {
+          "number": id
+        },
+        "brand": {
+          "relation": [
+            {
+              "id": brand.id
+            }
+          ]
+        },
+        "kind": {
+          "select": {
+            "name": "フク"
+          }
+        },
+      }
+    };
+
+    let pages = notionAPI(endpoint, "POST", payload);
+
+    return pages;
+
+  }
+
   return pages;
 }
 
@@ -452,7 +744,7 @@ function getShoes(battle) {
 
   let payload = {
     filter: {
-      "property": "名前",
+      "property": "Name",
       "title": {
         "equals": battle.player_result.player.shoes.name
       }
@@ -462,7 +754,60 @@ function getShoes(battle) {
   let res = notionAPI(endpoint, "POST", payload);
   if (isError(res)) return [];
 
-  let pages = res.results;
+  let pages = res.results[0];
+
+  if (Object.keys(res.results).length === 0) {
+    console.log(battle.player_result.player.shoes.name + "のページがないため作成します");
+
+    const id = Number(battle.player_result.player.shoes.id);
+    let brand = getClothesbrand(battle)
+
+    let endpoint = "/pages"
+
+    let payload = {
+      parent: {
+        database_id: gear_database,
+      },
+      "icon": {
+        "type": "external",
+        "external": {
+          "url": "https://app.splatoon2.nintendo.net" + battle.player_result.player.shoes.image
+        }
+      },
+      properties: {
+        "Name": {
+          title: [
+            {
+              text: {
+                content: battle.player_result.player.shoes.name
+              },
+            },
+          ],
+        },
+        "id": {
+          "number": id
+        },
+        "kind": {
+          "select": {
+            "name": "クツ"
+          }
+        },
+        "brand": {
+          "relation": [
+            {
+              "id": brand.id
+            }
+          ]
+        },
+      }
+    };
+
+    let pages = notionAPI(endpoint, "POST", payload);
+
+    return pages;
+
+  }
+
   return pages;
 }
 
@@ -471,7 +816,7 @@ function getspecialweapon(battle) {
 
   let payload = {
     filter: {
-      "property": "名前",
+      "property": "Name",
       "title": {
         "equals": battle.player_result.player.weapon.special.name
       }
@@ -501,7 +846,7 @@ function getspecialweapon(battle) {
         }
       },
       properties: {
-        名前: {
+        "Name": {
           title: [
             {
               text: {
@@ -523,6 +868,157 @@ function getspecialweapon(battle) {
   }
 
   return pages;
+}
+
+function createNotionPage(battle) {
+
+  const battle_number = Number(battle.battle_number);
+
+  let endpoint = "/pages"
+
+  let rule = getRule(battle)
+  let mode = getMode(battle)
+  let stage = getstage(battle)
+  let weapon = getweapon(battle)
+  let head = getHead(battle)
+  let clothes = getClothes(battle)
+  let shoes = getShoes(battle)
+
+  const time = new Date(battle.start_time * 1000)
+  time.setHours(time.getHours() + 9);
+
+  const isodate = time.toISOString();
+
+  const payload = {
+    parent: {
+      database_id: battle_database,
+    },
+    cover: {
+      "type": "external",
+      "external": {
+        "url": "https://app.splatoon2.nintendo.net" + battle.stage.image
+      }
+    },
+    properties: {
+      "Name": {
+        title: [
+          {
+            text: {
+              content: battle.my_team_result.name + " @" + battle.stage.name,
+            },
+          },
+        ],
+      },
+      "tag_id": {
+        "select": battle.tag_id === undefined ? null : { name: battle.tag_id },
+      },
+      "WIN!": {
+        "checkbox": battle.my_team_result.name === 'WIN!' ? true : false
+      },
+      "type": {
+        "select": battle.game_mode.key === "league_pair" ? { name: "ペア" } : battle.game_mode.key === "league_team" ? { name: "チーム" } : null
+      },
+      "udemae": {
+        "select": battle.udemae === undefined ? null : battle.udemae.s_plus_number === battle.udemae.s_plus_number ? { name: battle.udemae.name + + battle.udemae.s_plus_number } : { name: battle.udemae.name }
+      },
+      "battle_stage": {
+        "relation": [
+          {
+            "id": stage.id
+          }
+        ]
+      },
+      "rule": {
+        "relation": [
+          {
+            "id": rule[0].id
+          }
+        ]
+      },
+      "game_mode": {
+        "relation": [
+          {
+            "id": mode[0].id
+          }
+        ]
+      },
+      "アタマ": {
+        "relation": [
+          {
+            "id": head.id
+          }
+        ]
+      },
+      "フク": {
+        "relation": [
+          {
+            "id": clothes.id
+          }
+        ]
+      },
+      "クツ": {
+        "relation": [
+          {
+            "id": shoes.id
+          }
+        ]
+      },
+      "weapon": {
+        "relation": [
+          {
+            "id": weapon.id
+          }
+        ]
+      },
+      "player_rank": {
+        "number": battle.player_rank
+      },
+      "battle_number": {
+        "number": battle_number
+      },
+      "estimate_gachi_power": {
+        "number": battle.estimate_gachi_power === undefined ? null : battle.estimate_gachi_power
+      },
+      "x_power": {
+        "number": battle.x_power === undefined ? null : battle.x_power
+      },
+      "my_estimate_league_point": {
+        "number": battle.my_estimate_league_point === undefined ? null : battle.my_estimate_league_point
+      },
+      "other_estimate_league_point": {
+        "number": battle.other_estimate_league_point === undefined ? null : battle.other_estimate_league_point
+      },
+      "assist_count": {
+        "number": battle.player_result.assist_count
+      },
+      "star_rank": {
+        "number": battle.star_rank
+      },
+      "kill_count": {
+        "number": battle.player_result.kill_count
+      },
+      "death_count": {
+        "number": battle.player_result.death_count
+      },
+      "game_paint_point": {
+        "number": battle.player_result.game_paint_point
+      },
+      "special_count": {
+        "number": battle.player_result.special_count
+      },
+      "start_time": {
+        date: {
+          start: isodate,
+          time_zone: "Asia/Tokyo",
+        }
+      },
+    },
+  }
+
+  let res = notionAPI(endpoint, "POST", payload);
+  if (isError(res)) return false;
+
+  return true;
 }
 
 function createCoopNotionPage(coo) {
@@ -547,7 +1043,7 @@ function createCoopNotionPage(coo) {
       }
     },
     properties: {
-      名前: {
+      "Name": {
         title: [
           {
             text: {
@@ -589,148 +1085,7 @@ function createCoopNotionPage(coo) {
 }
 
 
-function createNotionPage(battle) {
-
-  const battle_number = Number(battle.battle_number);
-
-  let endpoint = "/pages"
-
-  let rule = getRule(battle)
-  let mode = getMode(battle)
-  let stage = getstage(battle)
-  let head = getHead(battle)
-  let weapon = getweapon(battle)
-  let clothes = getClothes(battle)
-  let shoes = getShoes(battle)
-
-  const time = new Date(battle.start_time * 1000)
-  time.setHours(time.getHours() + 9);
-
-  const isodate = time.toISOString();
-
-  const payload = {
-    parent: {
-      database_id: battle_database,
-    },
-    cover: {
-      "type": "external",
-      "external": {
-        "url": "https://app.splatoon2.nintendo.net" + battle.stage.image
-      }
-    },
-    properties: {
-      "Name": {
-        title: [
-          {
-            text: {
-              content: battle.my_team_result.name + " @" + battle.stage.name,
-            },
-          },
-        ],
-      },
-      "WIN!": {
-        "checkbox": battle.my_team_result.name === 'WIN!' ? true : false
-      },
-      "udemae": {
-        "select": {
-          "name": battle.udemae === undefined ? "null" : battle.udemae.name + battle.udemae.s_plus_number
-        }
-      },
-      "battle_stage": {
-        "relation": [
-          {
-            "id": stage.id
-          }
-        ]
-      },
-      "rule": {
-        "relation": [
-          {
-            "id": rule[0].id
-          }
-        ]
-      },
-      "game_mode": {
-        "relation": [
-          {
-            "id": mode[0].id
-          }
-        ]
-      },
-      "アタマ": {
-        "relation": [
-          {
-            "id": head[0].id
-          }
-        ]
-      },
-      "フク": {
-        "relation": [
-          {
-            "id": clothes[0].id
-          }
-        ]
-      },
-      "クツ": {
-        "relation": [
-          {
-            "id": shoes[0].id
-          }
-        ]
-      },
-      "weapon": {
-        "relation": [
-          {
-            "id": weapon.id
-          }
-        ]
-      },
-      "player_rank": {
-        "number": battle.player_rank
-      },
-      "battle_number": {
-        "number": battle_number
-      },
-      "estimate_gachi_power": {
-        "number": battle.estimate_gachi_power === undefined ? null : battle.estimate_gachi_power
-      },
-      "x_power": {
-        "number": battle.x_power === undefined ? null : battle.x_power
-      },
-      "assist_count": {
-        "number": battle.player_result.assist_count
-      },
-      "star_rank": {
-        "number": battle.star_rank
-      },
-      "kill_count": {
-        "number": battle.player_result.kill_count
-      },
-      "death_count": {
-        "number": battle.player_result.death_count
-      },
-      "game_paint_point": {
-        "number": battle.player_result.game_paint_point
-      },
-      "special_count": {
-        "number": battle.player_result.special_count
-      },
-      start_time: {
-        date: {
-          start: isodate,
-          time_zone: "Asia/Tokyo",
-        }
-      },
-    },
-  }
-
-  let res = notionAPI(endpoint, "POST", payload);
-  if (isError(res)) return false;
-
-  return true;
-}
-
-function splatoonAPI(endpoint) {
+function splatnetAPI(endpoint) {
 
   let api = "https://app.splatoon2.nintendo.net/api" + endpoint;
 
@@ -746,13 +1101,16 @@ function splatoonAPI(endpoint) {
 }
 
 function isValidIksmSession() {
-  var getOptions = { 'headers': { 'Cookie': 'iksm_session=' + iksm_session }, 'contentType': 'application/json' };
+
+  let endpoint = "/results"
+
   try {
-    UrlFetchApp.fetch('https://app.splatoon2.nintendo.net/api/results', getOptions);
+    splatnetAPI(endpoint)
     Logger.log('✅ iksm_session Succes!');
   } catch (e) {
     Logger.log(e);
   }
+
 }
 
 function notionAPI(endpoint, method, payload) {
