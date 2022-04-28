@@ -22,7 +22,7 @@ API へのアクセスを行うため iksm_session と呼ばれるトークン�
 
 以下のページを Notion 上で複製しバトル、サーモンラン、ルール、ステージ、ゲームモード、ブキ、サブウェポン、スペシャル、ギア、ブランド、ギアパワーの各データベースの id を取得します。
 
-https://yutakobayashi.notion.site/Splatoon2-c8ef1d1a5c4840dda1342aac4d9ed03d
+https://yutakobayashi.notion.site/Splatoon2-cc3b04c2ac22476fb5e189275e261247
 
 ### プロパティの設定
 
@@ -39,6 +39,7 @@ Google Apps Script の旧エディターなどでプロパティを以下のよ�
 - `"subweapon_database": your Notion Sub Weapon Database id`
 - `"specialweapon_database": your Notion Special Weapon Database id`
 - `"gear_database": your Notion Gear Database id`
+- `"brand_database": your Notion Brand Database id`
 - `"discordWebHookURL": your Discord Webhook URL`
 
 ### 定期実行
