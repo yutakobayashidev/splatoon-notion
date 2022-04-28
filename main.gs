@@ -979,6 +979,9 @@ function createNotionPage(battle) {
       "estimate_gachi_power": {
         "number": battle.estimate_gachi_power === undefined ? null : battle.estimate_gachi_power
       },
+      "max_league_point": {
+        "number": battle.max_league_point != null && battle.max_league_point > 0 ? battle.max_league_point : null
+      },
       "x_power": {
         "number": battle.x_power === undefined ? null : battle.x_power
       },
