@@ -16,7 +16,7 @@ const discordWebHookURL = props.getProperty('discordWebHookURL')
 
 function main() {
 
-  valid = isValidIksmSession()
+  isValidIksmSession()
 
   let updateCount = 0;
 
@@ -42,7 +42,7 @@ function main() {
 
   }
 
-  let coop = getCoop();
+  let salmon_run = getSalmonRun();
 
   let page1 = getPages1()
 
@@ -50,11 +50,11 @@ function main() {
 
   // サーモンランの保存
 
-  for (coo of coop) {
+  for (coop of salmon_run) {
 
-    if (coo.job_id <= latest_battle1) continue;
+    if (coop.job_id <= latest_battle1) continue;
 
-    let = coopnotion = createCoopNotionPage(coo)
+    let = coopnotion = createCoopNotionPage(coop)
 
     if (coopnotion) updateCount++;
 
@@ -91,7 +91,7 @@ function getResults() {
 }
 
 
-function getCoop() {
+function getSalmonRun() {
   let endpoint = `/coop_results`;
   let res = splatnetAPI(endpoint);
 
@@ -251,14 +251,14 @@ function getstage(battle) {
 
 }
 
-function getcoopstage(coo) {
+function getcoopstage(coop) {
   let endpoint = `/databases/${stage_database}/query`;
 
   let payload = {
     filter: {
       "property": "Name",
       "title": {
-        "equals": coo.schedule.stage.name
+        "equals": coop.schedule.stage.name
       }
     },
     page_size: 50,
@@ -1024,13 +1024,13 @@ function createNotionPage(battle) {
   return true;
 }
 
-function createCoopNotionPage(coo) {
+function createCoopNotionPage(coop) {
 
   let endpoint = "/pages"
 
-  let stage = getcoopstage(coo)
+  let stage = getcoopstage(coop)
 
-  const play_time = new Date(coo.play_time * 1000)
+  const play_time = new Date(coop.play_time * 1000)
   play_time.setHours(play_time.getHours() + 9);
 
   const isodate = play_time.toISOString();
@@ -1042,7 +1042,7 @@ function createCoopNotionPage(coo) {
     cover: {
       "type": "external",
       "external": {
-        "url": "https://app.splatoon2.nintendo.net" + coo.schedule.stage.image
+        "url": "https://app.splatoon2.nintendo.net" + coop.schedule.stage.image
       }
     },
     properties: {
@@ -1050,13 +1050,13 @@ function createCoopNotionPage(coo) {
         title: [
           {
             text: {
-              content: coo.job_result.is_clear === false ? "失敗" + ` (Wave ${coo.job_result.failure_wave})` + " @" + coo.schedule.stage.name : "クリア!" + " @" + coo.schedule.stage.name
+              content: coop.job_result.is_clear === false ? "失敗" + ` (Wave ${coop.job_result.failure_wave})` + " @" + coop.schedule.stage.name : "クリア!" + " @" + coop.schedule.stage.name
             },
           },
         ],
       },
       "is_clear": {
-        "checkbox": coo.job_result.is_clear
+        "checkbox": coop.job_result.is_clear
       },
       start_time: {
         date: {
@@ -1065,10 +1065,10 @@ function createCoopNotionPage(coo) {
         }
       },
       "failure_wave": {
-        "number": coo.job_result.failure_wave
+        "number": coop.job_result.failure_wave
       },
       "job_id": {
-        "number": coo.job_id
+        "number": coop.job_id
       },
       ステージ: {
         "relation": [
