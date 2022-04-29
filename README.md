@@ -26,7 +26,7 @@ https://yutakobayashi.notion.site/Splatoon2-cc3b04c2ac22476fb5e189275e261247
 
 ### プロパティの設定
 
-Google Apps Script の旧エディターなどでプロパティを以下のように設定します。
+Google Apps Script のクラシックエディターなどでプロパティを以下のように設定します。
 
 - `"iksm_session": your iksm_session token`
 - `"notionToken": your Notion integration token`
@@ -44,7 +44,7 @@ Google Apps Script の旧エディターなどでプロパティを以下のよ�
 
 ### 定期実行
 
-main 関数を定期実行することで自動で Notion にバトル履歴、サーモラン、使用したブキやギア、プレイしたステージなどのデータが自動的に作成されます。イカリング 2 の API の使用上過去 50 件のバトルデータのみしか取得できないためデータが消えてしまう前に実行するといいでしょう。
+main 関数を定期実行することで自動で Notion にバトル履歴、サーモラン、使用したブキやギア、プレイしたステージなどのデータが自動的に作成されます。イカリング 2 の API の仕様上過去 50 件のバトルデータのみしか取得できないためデータが消えてしまう前に実行するといいでしょう。
 
 ## TODO
 
