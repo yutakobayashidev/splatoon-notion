@@ -87,7 +87,13 @@ function getResults() {
 
   let results = res.results;
 
-  return results;
+  // 途中で処理が止まった場合も問題なく実行できるようソート
+
+  let result = results.sort(function (a, b) {
+    return (a.battle_number < b.battle_number) ? -1 : 1;  //オブジェクトの昇順ソート
+  });
+
+  return result;
 }
 
 
@@ -870,6 +876,16 @@ function getspecialweapon(battle) {
   return pages;
 }
 
+function getimage(battle) {
+
+  let endpoint = `/share/results/${battle.battle_number}`
+
+  let res = splatnetAPI(endpoint, "POST");
+
+  return res.url
+
+}
+
 function createNotionPage(battle) {
 
   const battle_number = Number(battle.battle_number);
@@ -884,6 +900,8 @@ function createNotionPage(battle) {
   let clothes = getClothes(battle)
   let shoes = getShoes(battle)
 
+  let image = getimage(battle)
+
   const time = new Date(battle.start_time * 1000)
   time.setHours(time.getHours() + 9);
 
@@ -896,7 +914,7 @@ function createNotionPage(battle) {
     cover: {
       "type": "external",
       "external": {
-        "url": "https://app.splatoon2.nintendo.net" + battle.stage.image
+        "url": image
       }
     },
     properties: {
@@ -1088,15 +1106,23 @@ function createCoopNotionPage(coop) {
 }
 
 
-function splatnetAPI(endpoint) {
+function splatnetAPI(endpoint, method) {
 
   let api = "https://app.splatoon2.nintendo.net/api" + endpoint;
-
-  var headers = { 'headers': { 'Cookie': 'iksm_session=' + iksm_session }, 'contentType': 'application/json' };
+  let headers = {
+    'Cookie': 'iksm_session=' + iksm_session,
+    'contentType': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  };
 
   let res = UrlFetchApp.fetch(
-    api, headers
+    api,
+    {
+      headers: headers,
+      method: method == undefined ? "GET" : method,
+    },
   );
+
 
   let json = JSON.parse(res.getContentText());
 
