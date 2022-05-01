@@ -49,4 +49,3 @@ main 関数を定期実行することで自動で Notion にバトル履歴、�
 ## TODO
 
 - ffmpeg と numpy と YouTube Data API の連携
-- カバー画像を `share/results/{battle_number}`から取得するように変更
