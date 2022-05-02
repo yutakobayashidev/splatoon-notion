@@ -882,8 +882,7 @@ function getimage(battle) {
 
   let res = splatnetAPI(endpoint, "POST");
 
-  return res.url
-
+  return res
 }
 
 function createNotionPage(battle) {
@@ -914,7 +913,7 @@ function createNotionPage(battle) {
     cover: {
       "type": "external",
       "external": {
-        "url": image
+        "url": image.url
       }
     },
     properties: {
@@ -1161,7 +1160,6 @@ function notionAPI(endpoint, method, payload) {
   );
 
   let json = JSON.parse(res.getContentText());
-
 
   return json;
 }
