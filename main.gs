@@ -14,6 +14,9 @@ const gear_database = props.getProperty('gear_database')
 const brand_database = props.getProperty('brand_database')
 const discordWebHookURL = props.getProperty('discordWebHookURL')
 
+const USER_LANG = "ja-jp";
+const TIMEZONE_OFFSET = "-540";
+
 function main() {
 
   isValidIksmSession()
@@ -1107,7 +1110,9 @@ function splatnetAPI(endpoint, method) {
   let headers = {
     'Cookie': 'iksm_session=' + iksm_session,
     'contentType': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest'
+    'X-Requested-With': 'XMLHttpRequest',
+    'Accept-Language': USER_LANG,
+    "x-timezone-offset": TIMEZONE_OFFSET,
   };
 
   let res = UrlFetchApp.fetch(
