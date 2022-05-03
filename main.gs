@@ -87,13 +87,9 @@ function getResults() {
 
   let results = res.results;
 
-  // 途中で処理が止まった場合も問題なく実行できるようソート
-
-  let result = results.sort(function (a, b) {
+  return results.sort(function (a, b) {
     return (a.battle_number < b.battle_number) ? -1 : 1;  //オブジェクトの昇順ソート
   });
-
-  return result;
 }
 
 
