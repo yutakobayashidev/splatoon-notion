@@ -884,7 +884,7 @@ function getimage(battle) {
   return res
 }
 
-function getuserinfo(battle) {
+function getnickname_and_icon(battle) {
 
   let endpoint = `/nickname_and_icon?id=${battle.player_result.player.principal_id}`;
 
@@ -908,7 +908,7 @@ function createNotionPage(battle) {
   let clothes = getClothes(battle)
   let shoes = getShoes(battle)
 
-  let user = getuserinfo(battle)
+  let user = getnickname_and_icon(battle)
 
   let image = getimage(battle)
 
