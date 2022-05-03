@@ -884,6 +884,16 @@ function getimage(battle) {
   return res
 }
 
+function getuserinfo(battle) {
+
+  let endpoint = `/nickname_and_icon?id=${battle.player_result.player.principal_id}`;
+
+  let res = splatnetAPI(endpoint);
+
+  return res.nickname_and_icons[0]
+
+}
+
 function createNotionPage(battle) {
 
   const battle_number = Number(battle.battle_number);
@@ -898,6 +908,8 @@ function createNotionPage(battle) {
   let clothes = getClothes(battle)
   let shoes = getShoes(battle)
 
+  let user = getuserinfo(battle)
+
   let image = getimage(battle)
 
   const time = new Date(battle.start_time * 1000)
@@ -908,6 +920,12 @@ function createNotionPage(battle) {
   const payload = {
     parent: {
       database_id: battle_database,
+    },
+    icon: {
+      "type": "external",
+      "external": {
+        "url": user.thumbnail_url
+      }
     },
     cover: {
       "type": "external",
@@ -977,6 +995,16 @@ function createNotionPage(battle) {
           {
             "id": shoes.id
           }
+        ]
+      },
+      "principal_id": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": battle.player_result.player.principal_id
+            }
+          },
         ]
       },
       "weapon": {
